@@ -35,7 +35,7 @@ class MLFlowServer(SeldonComponent):
         if not self.ready:
             raise requests.HTTPError("Model not loaded yet")
 
-        df = pd.DataFrame(X).transpose()
+        df = pd.DataFrame(X)
         df.columns = feature_names
         result = self._model.predict(df)
         #result = self._model.predict(X)
