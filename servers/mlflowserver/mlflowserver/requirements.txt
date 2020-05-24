@@ -3,4 +3,4 @@ requests==2.22.0
 mlflow==1.4.0
 
 # local seldon-core inside the s2i image
-/microservice/python
+#/microservice/python

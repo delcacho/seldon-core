@@ -5,9 +5,9 @@ PYTHON_VERSION=3.7
 CONDA_VERSION=4.7.12
 IMAGE_PYTHON_VERSION=`echo -n $(PYTHON_VERSION) | sed 's/\.//g'`
 BASE_IMAGE_PYTHON_VERSION=`echo -n $(PYTHON_VERSION) | cut -d. -f1`
-IMAGE_NAME = docker.io/seldonio/seldon-core-s2i-python${IMAGE_PYTHON_VERSION}
-BASE_IMAGE_NAME = docker.io/seldonio/seldon-core-s2i-python${BASE_IMAGE_PYTHON_VERSION}
-GPU_IMAGE_NAME = docker.io/seldonio/seldon-core-s2i-python3-tf-gpu
+IMAGE_NAME = delcacho/seldon-core-s2i-python${IMAGE_PYTHON_VERSION}
+BASE_IMAGE_NAME = delcacho/seldon-core-s2i-python${BASE_IMAGE_PYTHON_VERSION}
+GPU_IMAGE_NAME = delcacho/seldon-core-s2i-python3-tf-gpu
 
 SELDON_CORE_DIR=../../..
 
@@ -66,5 +66,5 @@ clean:
 	rm -rf test/transformer-template-app/.git
 
 after_build_image_seldon_core_check:
-	docker run --rm -it docker.io/seldonio/seldon-core-s2i-python36:$(IMAGE_VERSION) python -c 'import seldon_core; print(seldon_core.version.__version__)'
-	docker run --rm -it docker.io/seldonio/seldon-core-s2i-python37:$(IMAGE_VERSION) python -c 'import seldon_core; print(seldon_core.version.__version__)'
+	docker run --rm -it docker.io/delcacho/seldon-core-s2i-python36:$(IMAGE_VERSION) python -c 'import seldon_core; print(seldon_core.version.__version__)'
+	docker run --rm -it docker.io/delcacho/seldon-core-s2i-python37:$(IMAGE_VERSION) python -c 'import seldon_core; print(seldon_core.version.__version__)'

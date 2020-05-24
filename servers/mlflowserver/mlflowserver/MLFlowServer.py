@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import logging
 import requests
 from mlflow import pyfunc
@@ -34,7 +35,10 @@ class MLFlowServer(SeldonComponent):
         if not self.ready:
             raise requests.HTTPError("Model not loaded yet")
 
-        result = self._model.predict(X)
+        df = pd.DataFrame(X).transpose()
+        df.columns = feature_names
+        result = self._model.predict(df)
+        #result = self._model.predict(X)
         logger.info(f"Prediction result: {result}")
         return result
 

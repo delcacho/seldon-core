@@ -1,12 +1,12 @@
 VERSION=0.5
-IMAGE_BASE=seldonio/mlflowserver
+IMAGE_BASE=delcacho/mlflowserver
 S2I_IMAGE_VERSION=1.1.1-SNAPSHOT
 
 build_%:
 	s2i build \
 		-E environment_$* \
 		./mlflowserver \
-		seldonio/seldon-core-s2i-python37:${S2I_IMAGE_VERSION} \
+		delcacho/seldon-core-s2i-python37:${S2I_IMAGE_VERSION} \
 		${IMAGE_BASE}_$*:${VERSION}
 
 push_%:
