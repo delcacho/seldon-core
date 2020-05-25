@@ -10,6 +10,7 @@ import yaml
 import os
 
 logger = logging.getLogger()
+logger.setLevel("INFO")
 
 MLFLOW_SERVER = "model"
 
@@ -41,6 +42,9 @@ class MLFlowServer(SeldonComponent):
         #result = self._model.predict(X)
         logger.info(f"Prediction result: {result}")
         return result
+
+    def health_status(self):
+        return {"status":"ok"}
 
     def init_metadata(self):
         file_path = os.path.join(self.model_uri, "metadata.yaml")

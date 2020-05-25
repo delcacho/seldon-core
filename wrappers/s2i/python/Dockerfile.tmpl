@@ -1,14 +1,33 @@
-FROM continuumio/miniconda3:%CONDA_VERSION%
+FROM ubuntu:18.04
 
 LABEL io.openshift.s2i.scripts-url="image:///s2i/bin"
 
+# System packages 
+RUN apt-get update && apt-get install -y curl
+
+# Install miniconda to /miniconda
+RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda -b
+RUN rm Miniconda3-latest-Linux-x86_64.sh
+ENV PATH=/miniconda/bin:${PATH}
+RUN conda update -y conda
+
 # This is to install desired version of Python without updating conda version
-RUN conda install --yes python=%PYTHON_VERSION% conda=%CONDA_VERSION%
+RUN conda install --yes python=3.6.9
+RUN conda install --yes pip
+RUN conda config --add channels conda-forge 
+RUN conda update --all
 RUN apt-get update --yes && apt-get install --yes gcc make build-essential
+RUN apt-get install --yes wget
 
 # Spark dependencies
 ENV APACHE_SPARK_VERSION=2.4.5 \
     HADOOP_VERSION=2.7
+
+RUN apt-get update
+RUN apt-get purge openjdk* \
+  && apt-get install -yq openjdk-8-jdk-headless 
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 # Using the preferred mirror to download the file
 RUN cd /tmp && \
@@ -24,7 +43,7 @@ ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.7-src.zip
 ENV PYSPARK_PYTHON=python3 
 ENV PYSPARK_DriVER_PYTHON=python3 
 
-RUN pip install pyspark
+RUN conda install pyspark
 
 RUN mkdir microservice
 WORKDIR /microservice

@@ -39,8 +39,8 @@ else
     if _is_env_present $CONDA_ENV_NAME; then
         echo "Activating Conda environment '$CONDA_ENV_NAME'"
         # We need to initialise Conda so that it can run on /bin/sh
-        source /etc/profile.d/conda.sh
-        conda activate $CONDA_ENV_NAME
+        #source /etc/profile.d/conda.sh
+        source activate $CONDA_ENV_NAME
     fi
 
     echo "starting microservice"
