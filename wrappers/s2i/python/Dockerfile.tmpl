@@ -13,7 +13,7 @@ ENV PATH=/miniconda/bin:${PATH}
 RUN conda update -y conda
 
 # This is to install desired version of Python without updating conda version
-RUN conda install --yes python=3.6.9
+RUN conda install --yes python=3.6.10
 RUN conda install --yes pip
 RUN conda config --add channels conda-forge 
 RUN conda update --all

@@ -724,10 +724,10 @@ func createContainerService(deploy *appsv1.Deployment,
 	}
 
 	if con.LivenessProbe == nil {
-		con.LivenessProbe = &corev1.Probe{Handler: corev1.Handler{TCPSocket: &corev1.TCPSocketAction{Port: intstr.FromString(portType)}}, InitialDelaySeconds: 180, PeriodSeconds: 60, SuccessThreshold: 1, FailureThreshold: 3, TimeoutSeconds: 60}
+		con.LivenessProbe = &corev1.Probe{Handler: corev1.Handler{TCPSocket: &corev1.TCPSocketAction{Port: intstr.FromString(portType)}}, InitialDelaySeconds: 60, PeriodSeconds: 30, SuccessThreshold: 1, FailureThreshold: 10, TimeoutSeconds: 1}
 	}
 	if con.ReadinessProbe == nil {
-		con.ReadinessProbe = &corev1.Probe{Handler: corev1.Handler{TCPSocket: &corev1.TCPSocketAction{Port: intstr.FromString(portType)}}, InitialDelaySeconds: 180, PeriodSeconds: 60, SuccessThreshold: 1, FailureThreshold: 3, TimeoutSeconds: 60}
+		con.ReadinessProbe = &corev1.Probe{Handler: corev1.Handler{TCPSocket: &corev1.TCPSocketAction{Port: intstr.FromString(portType)}}, InitialDelaySeconds: 60, PeriodSeconds: 30, SuccessThreshold: 1, FailureThreshold: 10, TimeoutSeconds: 1}
 	}
 
 	// Add livecycle probe
